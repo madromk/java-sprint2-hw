@@ -1,3 +1,5 @@
+package tasks;
+
 public class BaseTask {
     private String name;
     private String description;
@@ -32,9 +34,12 @@ public class BaseTask {
 
     @Override
     public String toString() {
-        return "Название: " + name +
-                ". Описание: " + description +
-                ". Статус: " + status;
+        return "Название: " + getName() +
+                ". Описание: " + getDescription() +
+                ". Статус: " + getStatus();
     }
 
+    public int getId() {
+        return id;
+    }
 }
