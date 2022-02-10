@@ -9,14 +9,14 @@ public class Main {
         Manager manager = new Manager();
 
         //Создаем первую простую задачу
-        Task taskOne = new Task("Покупка", "Купить подарок на ДР", Manager.statusNew);
+        Task taskOne = new Task("Покупка", "Купить подарок на ДР", Manager.STATUS_NEW);
         int taskIdOne = manager.setTaskId();
         manager.setTask( taskIdOne, taskOne);
         System.out.println(manager.getTaskOnId(taskIdOne));
         System.out.println();
 
         //Создаем вторую простую задачу
-        Task taskTwo = new Task("Ремонт", "Забарать интрумент", Manager.statusNew);
+        Task taskTwo = new Task("Ремонт", "Забарать интрумент", Manager.STATUS_NEW);
         int taskIdTwo = manager.setTaskId();
         manager.setTask(taskIdTwo, taskTwo);
         System.out.println(manager.getTaskOnId(taskIdTwo));
@@ -26,8 +26,8 @@ public class Main {
         Epic epicOne = new Epic("Компьютер", "Собрать игровой ПК");
         int epicIdOne = manager.setEpicId();
         manager.setEpic(epicOne, epicIdOne);
-        SubTask subtaskOne = new SubTask("Покупка", "Купить железо", Manager.statusNew);
-        SubTask subtaskTwo = new SubTask("Сборка", "Собрать ПК и протестировать", Manager.statusNew);
+        SubTask subtaskOne = new SubTask("Покупка", "Купить железо", Manager.STATUS_NEW);
+        SubTask subtaskTwo = new SubTask("Сборка", "Собрать ПК и протестировать", Manager.STATUS_NEW);
         int idSubTaskOne = epicOne.setIdSubTask();
         int idSubTaskTwo = epicOne.setIdSubTask();
         manager.setSubTask(subtaskOne, idSubTaskOne, epicIdOne);
@@ -40,7 +40,7 @@ public class Main {
         Epic epicTwo = new Epic("Учеба", "Пройти второй спринт");
         int epicIdTwo = manager.setEpicId();
         manager.setEpic(epicTwo, epicIdTwo);
-        SubTask subtaskThree = new SubTask("Проект", "Сдать задачу на проверку", Manager.statusNew);
+        SubTask subtaskThree = new SubTask("Проект", "Сдать задачу на проверку", Manager.STATUS_NEW);
         int idSubTaskThree = epicTwo.setIdSubTask();
         manager.setSubTask(subtaskThree, idSubTaskThree, epicIdTwo);
         System.out.println(epicTwo);
@@ -48,12 +48,12 @@ public class Main {
         System.out.println();
 
         //Меняем статус у первой задачи
-        manager.updateTaskStatus(taskOne, Manager.statusDone);
+        manager.updateTaskStatus(taskOne, Manager.STATUS_DONE);
         System.out.println(manager.getTaskOnId(taskIdOne));
         System.out.println();
 
         //Меняем статус у подзадачи первого эпика
-        manager.updateSubTaskStatus(subtaskOne, Manager.statusInProgress);
+        manager.updateSubTaskStatus(subtaskOne, Manager.STATUS_IN_PROGRESS);
         System.out.println(manager.getEpicOnId(epicIdOne));
         manager.getSubTaskInEpic(epicIdOne);
         System.out.println();

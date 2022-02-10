@@ -8,9 +8,9 @@ import java.util.HashMap;
 
 public class Manager {
 
-    public static final String statusNew = "NEW";
-    public static final String statusInProgress = "IN_PROGRESS";
-    public static final String statusDone = "DONE";
+    public static final String STATUS_NEW = "NEW";
+    public static final String STATUS_IN_PROGRESS = "IN_PROGRESS";
+    public static final String STATUS_DONE = "DONE";
 
     private HashMap<Integer, Task> allTask = new HashMap<>();
     private HashMap<Integer, Epic> allEpic = new HashMap<>();

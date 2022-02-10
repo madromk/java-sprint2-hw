@@ -19,13 +19,13 @@ public class Epic extends BaseTask {
         String status = "";
         for (SubTask subTask : allSubTask.values()) {
             String SubTaskStatus = subTask.getStatus();
-            if ((status.isEmpty() || status.equals(Manager.statusNew)) && (SubTaskStatus.equals(Manager.statusNew))) {
-                status = Manager.statusNew;
-            } else if ((status.isEmpty() || status.equals(Manager.statusDone))
-                    && (SubTaskStatus.equals(Manager.statusDone))) {
-                status = Manager.statusDone;
+            if ((status.isEmpty() || status.equals(Manager.STATUS_NEW)) && (SubTaskStatus.equals(Manager.STATUS_NEW))) {
+                status = Manager.STATUS_NEW;
+            } else if ((status.isEmpty() || status.equals(Manager.STATUS_DONE))
+                    && (SubTaskStatus.equals(Manager.STATUS_DONE))) {
+                status = Manager.STATUS_DONE;
             } else {
-                status = Manager.statusInProgress;
+                status = Manager.STATUS_IN_PROGRESS;
             }
         }
         return status;

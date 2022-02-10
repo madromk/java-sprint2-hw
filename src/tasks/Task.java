@@ -1,3 +1,5 @@
+package tasks;
+
 public class Task extends BaseTask {
 
     public Task(String name, String description, String status) {
