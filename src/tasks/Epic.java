@@ -1,38 +1,40 @@
 package tasks;
-import manager.Manager;
+
+import manager.InMemoryTaskManager;
+import manager.Statuses;
 
 import java.util.HashMap;
 
 public class Epic extends BaseTask {
 
-    public Epic(String name, String description) {
-        super(name, description, null);
-    }
-
     private int idSubTask = 0;
 
     private HashMap<Integer, SubTask> allSubTask = new HashMap<>();
 
+    public Epic(String name, String description) {
+        super(name, description, null);
+    }
 
     @Override
-    public String getStatus() {
-        String status = "";
+    public Statuses getStatus() {
+        Statuses status = null;
         for (SubTask subTask : allSubTask.values()) {
-            String SubTaskStatus = subTask.getStatus();
-            if ((status.isEmpty() || status.equals(Manager.STATUS_NEW)) && (SubTaskStatus.equals(Manager.STATUS_NEW))) {
-                status = Manager.STATUS_NEW;
-            } else if ((status.isEmpty() || status.equals(Manager.STATUS_DONE))
-                    && (SubTaskStatus.equals(Manager.STATUS_DONE))) {
-                status = Manager.STATUS_DONE;
+            Statuses SubTaskStatus = subTask.getStatus();
+            if ((status == null || status.equals(InMemoryTaskManager.STATUS_NEW))
+                                    && (SubTaskStatus.equals(InMemoryTaskManager.STATUS_NEW))) {
+                status = InMemoryTaskManager.STATUS_NEW;
+            } else if ((status == null || status.equals(InMemoryTaskManager.STATUS_DONE))
+                    && (SubTaskStatus.equals(InMemoryTaskManager.STATUS_DONE))) {
+                status = InMemoryTaskManager.STATUS_DONE;
             } else {
-                status = Manager.STATUS_IN_PROGRESS;
+                status = InMemoryTaskManager.STATUS_IN_PROGRESS;
             }
         }
         return status;
     }
 
     @Override
-    public void setStatus(String status) {
+    public void setStatus(Statuses status) {
     }
 
     @Override

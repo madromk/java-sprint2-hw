@@ -1,12 +1,13 @@
 package tasks;
 
+import manager.Statuses;
 import tasks.BaseTask;
 
 public class SubTask extends BaseTask {
 
     private int belongEpicId;
 
-    public SubTask(String name, String description, String status) {
+    public SubTask(String name, String description, Statuses status) {
         super(name, description, status);
     }
 

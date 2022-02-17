@@ -1,12 +1,14 @@
 package tasks;
 
+import manager.Statuses;
+
 public class BaseTask {
     private String name;
     private String description;
     private int id;
-    private String status;
+    Statuses status;
 
-    public BaseTask(String name, String description, String status) {
+    public BaseTask(String name, String description, Statuses status) {
         this.name = name;
         this.description = description;
         this.status = status;
@@ -20,7 +22,7 @@ public class BaseTask {
         return description;
     }
 
-    public String getStatus() {
+    public Statuses getStatus() {
         return status;
     }
 
@@ -28,7 +30,7 @@ public class BaseTask {
         this.id = baseId;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Statuses status) {
         this.status = status;
     }
 
