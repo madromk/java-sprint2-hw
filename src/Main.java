@@ -1,11 +1,12 @@
 import manager.InMemoryTaskManager;
 import manager.Managers;
 import manager.TaskManager;
+import tasks.BaseTask;
 import tasks.Epic;
 import tasks.SubTask;
 import tasks.Task;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class Main {
@@ -74,9 +75,12 @@ public class Main {
         inMemoryTaskManager.getAllEpic();
         System.out.println();
 
-        //Вызываем метод с печатью историей
-        System.out.println("История просмотровЖ");
-        inMemoryTaskManager.printHistory();
+        //Вызываем метод history и распечатываем каждый элемент из истории
+        System.out.println("История просмотров:");
+        List<BaseTask> history = inMemoryTaskManager.History();
+        for (BaseTask task : history) {
+            System.out.println(task);
+            System.out.println(task);
+        }
     }
-
 }
