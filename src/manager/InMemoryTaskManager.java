@@ -1,6 +1,5 @@
 package manager;
 
-import tasks.BaseTask;
 import tasks.Epic;
 import tasks.SubTask;
 import tasks.Task;
@@ -22,7 +21,7 @@ public class InMemoryTaskManager implements TaskManager {
     private int taskId = 0;
     private int epicId = 0;
 
-    HistoryManager inMemoryHistoryManager = new Managers().getDefaultHistory();
+    private HistoryManager inMemoryHistoryManager = new Managers().getDefaultHistory();
 
     @Override
     public void getAllTask() {
@@ -191,13 +190,18 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void printHistory() {
-        List<BaseTask> history = inMemoryHistoryManager.getHistory();
-        for (BaseTask task : history) {
-            System.out.println(task);
-        }
+    public List History() {
+        return inMemoryHistoryManager.getHistory();
     }
 
+
+    public HistoryManager getInMemoryHistoryManager() {
+        return inMemoryHistoryManager;
+    }
+
+    public void setInMemoryHistoryManager(HistoryManager inMemoryHistoryManager) {
+        this.inMemoryHistoryManager = inMemoryHistoryManager;
+    }
 }
 
 
