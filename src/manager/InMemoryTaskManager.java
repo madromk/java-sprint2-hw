@@ -190,7 +190,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public List History() {
+    public List history() {
         return inMemoryHistoryManager.getHistory();
     }
 
