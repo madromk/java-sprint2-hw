@@ -1,7 +1,6 @@
 package tasks;
 
 import manager.Statuses;
-import tasks.BaseTask;
 
 public class SubTask extends BaseTask {
 
