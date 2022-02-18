@@ -1,58 +1,59 @@
 package manager;
 
-import tasks.BaseTask;
 import tasks.Epic;
 import tasks.SubTask;
 import tasks.Task;
 
+import java.util.List;
+
 
 public interface TaskManager {
-    public void getAllTask();
+    void getAllTask();
 
-    public void getAllEpic();
+    void getAllEpic();
 
-    public void getAllSubTask();
+    void getAllSubTask();
 
-    public void removeAllTask();
+    void removeAllTask();
 
-    public void removeAllEpic();
+    void removeAllEpic();
 
-    public void removeAllSubTask();
+    void removeAllSubTask();
 
-    public Task getTaskOnId(int idTask);
+    Task getTaskOnId(int idTask);
 
-    public Epic getEpicOnId(int idEpic);
+    Epic getEpicOnId(int idEpic);
 
-    public SubTask getSubTaskById(int idSubTask, int idEpic);
+    SubTask getSubTaskById(int idSubTask, int idEpic);
 
-    public void setTask(int taskId, Task task);
+    void setTask(int taskId, Task task);
 
-    public void setEpic(Epic epic, int epicId);
+    void setEpic(Epic epic, int epicId);
 
-    public void setSubTask(SubTask subtask, int idSubTask, int idEpic);
+    void setSubTask(SubTask subtask, int idSubTask, int idEpic);
 
-    public void updateTask(int id, Task task);
+    void updateTask(int id, Task task);
 
-    public void updateEpic(int id, Epic epic);
+    void updateEpic(int id, Epic epic);
 
-    public void updateSubTask(int idEpic, int idSubTask, SubTask subTask);
+    void updateSubTask(int idEpic, int idSubTask, SubTask subTask);
 
-    public void removeTask(int id);
+    void removeTask(int id);
 
-    public void removeEpic(int id);
+    void removeEpic(int id);
 
-    public void removeSubTask(int idSubTask, int idEpic);
+    void removeSubTask(int idSubTask, int idEpic);
 
-    public void getSubTaskInEpic(int epicId);
+    void getSubTaskInEpic(int epicId);
 
-    public void updateTaskStatus(Task task, Statuses status);
+    void updateTaskStatus(Task task, Statuses status);
 
-    public void updateSubTaskStatus(SubTask subTask, Statuses status);
+    void updateSubTaskStatus(SubTask subTask, Statuses status);
 
-    public int setTaskId();
+    int setTaskId();
 
-    public int setEpicId();
+    int setEpicId();
 
-    public void printHistory();
+    List History();
 
 }
