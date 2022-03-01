@@ -19,7 +19,7 @@ public class InMemoryTaskManager implements TaskManager {
 
 
     private int taskId = 0;
-    private int epicId = 0;
+    private int epicId = 1000;
 
     private HistoryManager inMemoryHistoryManager = new Managers().getDefaultHistory();
 
@@ -98,12 +98,6 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public SubTask getSubTaskById(int idSubTask, int idEpic) {
-        inMemoryHistoryManager.addInHistory(allEpic.get(idEpic).getSubTaskOnId(idSubTask));
-        return allEpic.get(idEpic).getSubTaskOnId(idSubTask);
-    }
-
-    @Override
     public void setTask(int taskId, Task task) {
         task.setId(taskId); //Сохранили id в объекте
         allTask.put(taskId, task);
@@ -138,13 +132,15 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void removeTask(int id) {
-        allTask.remove(id);
+    public void removeTask(int idTask) {
+        inMemoryHistoryManager.remove(idTask);
+        allTask.remove(idTask);
     }
 
     @Override
-    public void removeEpic(int id) {
-        allEpic.remove(id);
+    public void removeEpic(int idEpic) {
+        inMemoryHistoryManager.remove(idEpic);
+        allEpic.remove(idEpic);
     }
 
     @Override

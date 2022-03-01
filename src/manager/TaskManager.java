@@ -24,8 +24,6 @@ public interface TaskManager {
 
     Epic getEpicOnId(int idEpic);
 
-    SubTask getSubTaskById(int idSubTask, int idEpic);
-
     void setTask(int taskId, Task task);
 
     void setEpic(Epic epic, int epicId);
