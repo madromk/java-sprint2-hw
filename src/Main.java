@@ -44,21 +44,35 @@ public class Main {
         int epicIdTwo = inMemoryTaskManager.setEpicId();
         inMemoryTaskManager.setEpic(epicTwo, epicIdTwo);
 
-        //Вызываем задачи. Первую задачу вызываем два раза
+        //Вызываем задачи. При каждом вызове задачи - вызываем историю. Не должно быть повторов
         inMemoryTaskManager.getTaskOnId(taskIdOne);
-        inMemoryTaskManager.getTaskOnId(taskIdTwo);
-        inMemoryTaskManager.getEpicOnId(epicIdOne);
-        inMemoryTaskManager.getTaskOnId(taskIdOne);
-
-
-        //Вызываем метод history и распечатываем историю
         System.out.println("История просмотров:");
         List<BaseTask> history = inMemoryTaskManager.history();
         System.out.println(history);
         System.out.println();
 
-        //Удаляем первую задачу
+        inMemoryTaskManager.getTaskOnId(taskIdTwo);
+        System.out.println("История просмотров:");
+        history = inMemoryTaskManager.history();
+        System.out.println(history);
+        System.out.println();
+
+        inMemoryTaskManager.getEpicOnId(epicIdOne);
+        System.out.println("История просмотров:");
+        history = inMemoryTaskManager.history();
+        System.out.println(history);
+        System.out.println();
+
+        inMemoryTaskManager.getTaskOnId(taskIdOne);
+        System.out.println("История просмотров:");
+        history = inMemoryTaskManager.history();
+        System.out.println(history);
+        System.out.println();
+
+        //Удаляем первую простую задачу и удаляем эпик с подзадачами. Не должно остаться эпика и его подзадач
         inMemoryTaskManager.removeTask(taskIdOne);
+        inMemoryTaskManager.removeEpic(epicIdOne);
+        history = inMemoryTaskManager.history();
         System.out.println("История просмотров:");
         System.out.println(history);
 

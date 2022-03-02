@@ -19,7 +19,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public void remove(int id) {
         linkedHistory.removeNode(linkedHistory.hashMapNode.get(id));
-        }
+    }
 
     @Override
     public List<BaseTask> getHistory() {
