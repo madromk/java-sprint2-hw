@@ -1,17 +1,26 @@
 package tasks;
 
 import manager.Statuses;
+import manager.TypeOfTask;
 
 public class BaseTask {
     private String name;
     private String description;
     private int id;
     Statuses status;
+    TypeOfTask type;
 
     public BaseTask(String name, String description, Statuses status) {
         this.name = name;
         this.description = description;
         this.status = status;
+    }
+
+    public BaseTask(String name, String description, Statuses status, TypeOfTask type) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.type = type;
     }
 
     public String getName() {
@@ -34,14 +43,23 @@ public class BaseTask {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Название: " + getName() +
-                ". Описание: " + getDescription() +
-                ". Статус: " + getStatus();
-    }
-
     public int getId() {
         return id;
+    }
+
+
+    public TypeOfTask getType() {
+        return type;
+    }
+
+    @Override
+    public String toString() {
+        return getId() + ", " + getType() + ", " + getName() + ", "
+                + getStatus() + ", " + getDescription() + ", ";
+    }
+
+
+    public void setType(TypeOfTask type) {
+        this.type = type;
     }
 }

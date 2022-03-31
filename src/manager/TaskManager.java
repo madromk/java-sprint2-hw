@@ -4,6 +4,7 @@ import tasks.Epic;
 import tasks.SubTask;
 import tasks.Task;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -23,6 +24,8 @@ public interface TaskManager {
     Task getTaskOnId(int idTask);
 
     Epic getEpicOnId(int idEpic);
+
+    SubTask getSubTaskOnId(int idSubTask);
 
     void setTask(int taskId, Task task);
 
@@ -53,5 +56,11 @@ public interface TaskManager {
     int setEpicId();
 
     List history();
+
+    HashMap<Integer, Task> allTasksHashMap();
+
+    HashMap<Integer, Epic> allEpicsHashMap();
+
+    HashMap<Integer, SubTask> allSubTasksHashMap();
 
 }

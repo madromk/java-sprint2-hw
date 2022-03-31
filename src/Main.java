@@ -32,9 +32,9 @@ public class Main {
                 InMemoryTaskManager.STATUS_NEW);
         SubTask subtaskThree = new SubTask("Установка ОС", "Установить Windows",
                 InMemoryTaskManager.STATUS_NEW);
-        int idSubTaskOne = epicOne.setIdSubTask();
-        int idSubTaskTwo = epicOne.setIdSubTask();
-        int idSubTaskThree = epicOne.setIdSubTask();
+        int idSubTaskOne = inMemoryTaskManager.setTaskId();
+        int idSubTaskTwo = inMemoryTaskManager.setTaskId();
+        int idSubTaskThree = inMemoryTaskManager.setTaskId();
         inMemoryTaskManager.setSubTask(subtaskOne, idSubTaskOne, epicIdOne);
         inMemoryTaskManager.setSubTask(subtaskTwo, idSubTaskTwo, epicIdOne);
         inMemoryTaskManager.setSubTask(subtaskThree, idSubTaskThree, epicIdOne);
@@ -46,25 +46,25 @@ public class Main {
 
         //Вызываем задачи. При каждом вызове задачи - вызываем историю. Не должно быть повторов
         inMemoryTaskManager.getTaskOnId(taskIdOne);
-        System.out.println("История просмотров:");
+        System.out.println("История просмотров 1:");
         List<BaseTask> history = inMemoryTaskManager.history();
         System.out.println(history);
         System.out.println();
 
         inMemoryTaskManager.getTaskOnId(taskIdTwo);
-        System.out.println("История просмотров:");
+        System.out.println("История просмотров 2:");
         history = inMemoryTaskManager.history();
         System.out.println(history);
         System.out.println();
 
         inMemoryTaskManager.getEpicOnId(epicIdOne);
-        System.out.println("История просмотров:");
+        System.out.println("История просмотров 3:");
         history = inMemoryTaskManager.history();
         System.out.println(history);
         System.out.println();
 
         inMemoryTaskManager.getTaskOnId(taskIdOne);
-        System.out.println("История просмотров:");
+        System.out.println("История просмотров 4:");
         history = inMemoryTaskManager.history();
         System.out.println(history);
         System.out.println();
@@ -73,7 +73,7 @@ public class Main {
         inMemoryTaskManager.removeTask(taskIdOne);
         inMemoryTaskManager.removeEpic(epicIdOne);
         history = inMemoryTaskManager.history();
-        System.out.println("История просмотров:");
+        System.out.println("История просмотров 5:");
         System.out.println(history);
 
     }

@@ -16,12 +16,12 @@ public class InMemoryTaskManager implements TaskManager {
 
     private HashMap<Integer, Task> allTask = new HashMap<>();
     private HashMap<Integer, Epic> allEpic = new HashMap<>();
+    private HashMap<Integer, SubTask> allSubTask = new HashMap<>();
 
 
-    private int taskId = 0;
-    private int epicId = 1000;
+    private int id = 1;
 
-    private HistoryManager inMemoryHistoryManager = new Managers().getDefaultHistory();
+    protected HistoryManager inMemoryHistoryManager = new Managers().getDefaultHistory();
 
     @Override
     public void getAllTask() {
@@ -98,6 +98,12 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
+    public SubTask getSubTaskOnId(int idSubTask) {
+        inMemoryHistoryManager.addInHistory(allSubTask.get(idSubTask));
+        return allSubTask.get(idSubTask);
+    }
+
+    @Override
     public void setTask(int taskId, Task task) {
         task.setId(taskId); //Сохранили id в объекте
         allTask.put(taskId, task);
@@ -111,6 +117,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void setSubTask(SubTask subtask, int idSubTask, int idEpic) {
+        allSubTask.put(idSubTask, subtask);
         subtask.setId(idSubTask);
         subtask.setBelongEpicId(idEpic); //Сохраняем id эпика в сабтаске
         allEpic.get(idEpic).setSubTask(idSubTask, subtask);
@@ -128,6 +135,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateSubTask(int idEpic, int idSubTask, SubTask subTask) {
+        allSubTask.put(idSubTask, subTask);
         allEpic.get(idEpic).setSubTask(idSubTask, subTask);
     }
 
@@ -145,6 +153,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeSubTask(int idSubTask, int idEpic) {
+        allSubTask.remove(idSubTask);
         allEpic.get(idEpic).removeSubTask(idSubTask);
     }
 
@@ -177,12 +186,12 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public int setTaskId() {
-        return this.taskId++;
+        return this.id++;
     }
 
     @Override
     public int setEpicId() {
-        return this.epicId++;
+        return this.id++;
     }
 
     @Override
@@ -190,6 +199,21 @@ public class InMemoryTaskManager implements TaskManager {
         return inMemoryHistoryManager.getHistory();
     }
 
+
+    @Override
+    public HashMap<Integer, Task> allTasksHashMap() {
+        return allTask;
+    }
+
+    @Override
+    public HashMap<Integer, Epic> allEpicsHashMap() {
+        return allEpic;
+    }
+
+    @Override
+    public HashMap<Integer, SubTask> allSubTasksHashMap() {
+        return allSubTask;
+    }
 
     public HistoryManager getInMemoryHistoryManager() {
         return inMemoryHistoryManager;

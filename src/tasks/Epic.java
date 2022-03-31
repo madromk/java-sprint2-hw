@@ -2,14 +2,18 @@ package tasks;
 
 import manager.InMemoryTaskManager;
 import manager.Statuses;
+import manager.TypeOfTask;
 
 import java.util.HashMap;
 
 public class Epic extends BaseTask {
 
-    private int idSubTask = 0;
-
     private HashMap<Integer, SubTask> allSubTask = new HashMap<>();
+
+    public Epic(String name, String description, TypeOfTask type) {
+        super(name, description, null);
+        this.type = type;
+    }
 
     public Epic(String name, String description) {
         super(name, description, null);
@@ -21,7 +25,7 @@ public class Epic extends BaseTask {
         for (SubTask subTask : allSubTask.values()) {
             Statuses SubTaskStatus = subTask.getStatus();
             if ((status == null || status.equals(InMemoryTaskManager.STATUS_NEW))
-                                    && (SubTaskStatus.equals(InMemoryTaskManager.STATUS_NEW))) {
+                    && (SubTaskStatus.equals(InMemoryTaskManager.STATUS_NEW))) {
                 status = InMemoryTaskManager.STATUS_NEW;
             } else if ((status == null || status.equals(InMemoryTaskManager.STATUS_DONE))
                     && (SubTaskStatus.equals(InMemoryTaskManager.STATUS_DONE))) {
@@ -56,10 +60,6 @@ public class Epic extends BaseTask {
 
     public void removeSubTask(int idSubTask) {
         allSubTask.remove(idSubTask);
-    }
-
-    public int setIdSubTask() {
-        return this.idSubTask++;
     }
 
     public SubTask getSubTaskOnId(int id) {
