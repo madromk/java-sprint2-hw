@@ -93,11 +93,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             fileWrite.write(historyStr);
             fileWrite.close();
         } catch (IOException e) {
-            try {
-                throw new ManagerSaveException("Ошибка чтения файла");
-            } catch (ManagerSaveException ex) {
-                ex.printStackTrace();
-            }
+            throw new ManagerSaveException("Ошибка записи в файл");
         }
     }
 
@@ -121,11 +117,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 }
             }
         } catch (IOException e) {
-            try {
-                throw new ManagerSaveException("Ошибка чтения файла");
-            } catch (ManagerSaveException ex) {
-                ex.printStackTrace();
-            }
+            throw new ManagerSaveException("Ошибка чтения файла");
         }
     }
 
@@ -152,11 +144,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 }
             }
         } catch (IOException e) {
-            try {
-                throw new ManagerSaveException("Ошибка чтения файла");
-            } catch (ManagerSaveException ex) {
-                ex.printStackTrace();
-            }
+            throw new ManagerSaveException("Ошибка чтения файла");
         }
     }
 
