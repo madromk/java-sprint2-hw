@@ -6,6 +6,7 @@ import manager.TypeOfTask;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.Objects;
 
 public class BaseTask {
     private String name;
@@ -33,12 +34,10 @@ public class BaseTask {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         BaseTask baseTask = (BaseTask) o;
-        if (!name.equals(baseTask.getName())) return false;
-        if (!description.equals(baseTask.getDescription())) return false;
-
-        return true;
+        return Objects.equals(id, baseTask.getId()) &&
+                Objects.equals(name, baseTask.getName()) &&
+                Objects.equals(description, baseTask.getDescription());
     }
 
 //    @Override

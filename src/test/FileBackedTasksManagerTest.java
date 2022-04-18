@@ -39,8 +39,10 @@ class FileBackedTasksManagerTest extends TaskManagerTest{
 
 
         //Проверяем, что задачи которые мы прочитали из файла, совпадают с теми, которые мы положили в файл
-        Task taskFromFile = inMemoryTaskManager.getTaskOnId(1);
-        assertEquals(taskOne, taskFromFile, "Задачи не совпадают");
+        taskOne.setId(1); //Здесь заданим айди задачи, поскольку айди присваивается в момент сохранения задачи в табл.
+        Task task1 = inMemoryTaskManager.getTaskOnId(1);
+        assertEquals(taskOne, task1, "Задачи не совпадают");
+        taskTwo.setId(2); //По аналогии с 42 строкой
         Task task2 = inMemoryTaskManager.getTaskOnId(2);
         assertEquals(taskTwo, task2, "Задачи не совпадают");
 
