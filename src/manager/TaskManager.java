@@ -1,11 +1,15 @@
 package manager;
 
+import tasks.BaseTask;
 import tasks.Epic;
 import tasks.SubTask;
 import tasks.Task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 
 public interface TaskManager {
@@ -20,18 +24,24 @@ public interface TaskManager {
     void removeAllEpic();
 
     void removeAllSubTask();
-
     Task getTaskOnId(int idTask);
+    public Epic getEpicOnId(int idEpic);
 
-    Epic getEpicOnId(int idEpic);
+    Task getTaskOnIdAndSaveInHistory(int idTask);
+
+    Epic getEpicOnIdAndSaveInHistory(int idEpic);
 
     SubTask getSubTaskOnId(int idSubTask);
 
-    void setTask(int taskId, Task task);
+    int setTask(Task task, LocalDateTime date, Duration duration);
 
-    void setEpic(Epic epic, int epicId);
+    void setTaskFromFile(int id, Task task);
 
-    void setSubTask(SubTask subtask, int idSubTask, int idEpic);
+    int setEpic(Epic epic);
+    void setEpicFromFile(int id, Epic epic);
+
+    int setSubTask(SubTask subTask, int idEpic, LocalDateTime dateTime, Duration duration);
+    void setSubTaskFromFile(int subTaskId, SubTask subTask, int EpicId);
 
     void updateTask(int id, Task task);
 
@@ -47,9 +57,9 @@ public interface TaskManager {
 
     void getSubTaskInEpic(int epicId);
 
-    void updateTaskStatus(Task task, Statuses status);
+    void updateTaskStatus(int id, Task task, Statuses status);
 
-    void updateSubTaskStatus(SubTask subTask, Statuses status);
+    void updateSubTaskStatus(int idSubTask, SubTask subTask, Statuses status);
 
     int setTaskId();
 
@@ -62,5 +72,9 @@ public interface TaskManager {
     HashMap<Integer, Epic> allEpicsHashMap();
 
     HashMap<Integer, SubTask> allSubTasksHashMap();
+    Set<BaseTask> getPrioritizedTasks();
+    void updatePrioritizedTasks();
+    void printCannotCreateTaskBecauseOfTime();
+    boolean checkDate(LocalDateTime dateTimeStart);
 
 }
