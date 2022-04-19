@@ -73,8 +73,9 @@ public interface TaskManager {
 
     HashMap<Integer, SubTask> allSubTasksHashMap();
     Set<BaseTask> getPrioritizedTasks();
-    void updatePrioritizedTasks();
+
+    void removeTaskFromPrioritize(BaseTask task);
     void printCannotCreateTaskBecauseOfTime();
-    boolean checkDate(LocalDateTime dateTimeStart);
+    boolean isFreeDate(LocalDateTime dateTimeStart);
 
 }
