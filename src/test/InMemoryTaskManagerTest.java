@@ -1,18 +1,8 @@
 package test;
 
-import manager.InMemoryTaskManager;
-import manager.Statuses;
+
 import org.junit.jupiter.api.Test;
-import tasks.BaseTask;
-import tasks.Epic;
-import tasks.SubTask;
-import tasks.Task;
-import test.TaskManagerTest;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryTaskManagerTest extends TaskManagerTest {
 
