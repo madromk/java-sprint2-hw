@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,7 +22,6 @@ public abstract class TaskManagerTest<T extends TaskManager>  {
             InMemoryTaskManager.STATUS_NEW, TypeOfTask.TASK);
     LocalDateTime dateTimeStartTask1 = LocalDateTime.of(2022, 3, 17, 00, 00);
     Duration durationTask1 = Duration.ofDays(2);
-
     Task taskTwo = new Task("Поездка", "Сьездить к родителям",
             InMemoryTaskManager.STATUS_NEW, TypeOfTask.TASK);
     LocalDateTime dateTimeStartTask2 = LocalDateTime.of(2022, 4, 8, 00, 00);
@@ -113,24 +113,25 @@ public abstract class TaskManagerTest<T extends TaskManager>  {
 
     @Test
     void checkPrioritizedTasks() {
-        int taskId = inMemoryTaskManager.setTask(taskOne, dateTimeStartTask1, durationTask1); // Дата старта 22.3.17
+
+        int taskId1 = inMemoryTaskManager.setTask(taskOne, dateTimeStartTask1, durationTask1); //Дата старта 22.3.17
         int epicId = inMemoryTaskManager.setEpic(epicOne); //без даты
-        int taskId2 = inMemoryTaskManager.setTask(taskTwo, dateTimeStartTask2, durationTask2); //22.4.8
+        int taskId2 = inMemoryTaskManager.setTask(taskTwo, dateTimeStartTask2, durationTask2); // 22.4.8
+
         //Выгружаем приоритетные задачи в List для доступа к методам get(index);
         List<BaseTask> listPrioritizedTasks = new ArrayList<>(inMemoryTaskManager.getPrioritizedTasks());
 
-
-        BaseTask task1 = (BaseTask)inMemoryTaskManager.getTaskOnIdAndSaveInHistory(taskId);
-        BaseTask task2 = (BaseTask)inMemoryTaskManager.getTaskOnIdAndSaveInHistory(taskId2);
-        BaseTask epic1 = (BaseTask)inMemoryTaskManager.getEpicOnIdAndSaveInHistory(epicId);
+        BaseTask task1 = (BaseTask)inMemoryTaskManager.getTaskOnId(taskId1);
+        BaseTask task2 = (BaseTask)inMemoryTaskManager.getTaskOnId(taskId2);
+        BaseTask epic1 = (BaseTask)inMemoryTaskManager.getEpicOnId(epicId);
 
         //На первом месте задача с самым ранним стартом 22.3.17
         assertEquals(task1, listPrioritizedTasks.get(0));
+
         //Второе место - дата старта 22.4.8
         assertEquals(task2, listPrioritizedTasks.get(1));
         //Поскольку эпик без даты, он будет в конце списка, т.е под индексом 2
         assertEquals(epic1, listPrioritizedTasks.get(2), "Задачи не совпадают.");
-
     }
 
 }
