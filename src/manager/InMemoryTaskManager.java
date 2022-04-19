@@ -18,22 +18,21 @@ public class InMemoryTaskManager implements TaskManager {
     private HashMap<Integer, Task> allTask = new HashMap<>();
     private HashMap<Integer, Epic> allEpic = new HashMap<>();
 
-    Comparator<BaseTask> baseTaskComparator = new Comparator<BaseTask>() {
+    private Comparator<BaseTask> baseTaskComparator = new Comparator<BaseTask>() {
         @Override
         public int compare(BaseTask baseTask1, BaseTask baseTask2) {
-            if(baseTask2.getStartDate() == null) {
+            if (baseTask1.getStartDate() == null) {
                 return 1;
             }
-            if(baseTask1.getStartDate() == null) {
-                return 1;
+            if (baseTask1.getStartDate() != null && baseTask2.getStartDate() != null) {
+                if (baseTask1.getStartDate().isAfter(baseTask2.getStartDate())) {
+                    return 1;
+                }
+                if(baseTask1.getStartDate().isBefore(baseTask2.getStartDate())) {
+                    return -1;
+                }
             }
-            if(baseTask1.getStartDate().isBefore(baseTask2.getStartDate())) {
-                return -1;
-            } else if(baseTask1.getStartDate().isAfter(baseTask2.getStartDate())) {
-                return 1;
-            } else {
-                return -1;
-            }
+            return -1;
         }
     };
 
@@ -141,7 +140,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public int setTask(Task task, LocalDateTime dateTime, Duration duration) {
-        boolean isCheckDate = checkDate(dateTime);
+        boolean isCheckDate = isFreeDate(dateTime);
         int id = -1;
         if(isCheckDate) {
             task.setStartDate(dateTime);
@@ -149,7 +148,7 @@ public class InMemoryTaskManager implements TaskManager {
             id = setTaskId();
             task.setId(id);
             allTask.put(id, task);
-            updatePrioritizedTasks();
+            prioritizedTasks.add((BaseTask)allTask.get(id));
         } else {
             printCannotCreateTaskBecauseOfTime();
         }
@@ -167,7 +166,7 @@ public class InMemoryTaskManager implements TaskManager {
         int epicId = setEpicId();
         epic.setId(epicId);
         allEpic.put(epicId, epic);
-        updatePrioritizedTasks();
+        prioritizedTasks.add((BaseTask)allEpic.get(epicId));
         return epicId;
     }
 
@@ -179,7 +178,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public int setSubTask(SubTask subTask, int idEpic, LocalDateTime dateTime, Duration duration) {
-        boolean isCheckDate = checkDate(dateTime);
+        boolean isCheckDate = isFreeDate(dateTime);
         int id = -1;
         if(isCheckDate) {
             subTask.setStartDate(dateTime);
@@ -190,7 +189,7 @@ public class InMemoryTaskManager implements TaskManager {
             Epic epic = getEpicOnId(idEpic);
             epic.getAllSubTask().put(id, subTask);
             allEpic.put(idEpic, epic);
-            updatePrioritizedTasks();
+//            updatePrioritizedTasks();
         } else {
             printCannotCreateTaskBecauseOfTime();
         }
@@ -222,18 +221,21 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeTask(int idTask) {
+        removeTaskFromPrioritize(allTask.get(idTask));
         inMemoryHistoryManager.remove(idTask);
         allTask.remove(idTask);
     }
 
     @Override
     public void removeEpic(int idEpic) {
+        removeTaskFromPrioritize(allEpic.get(idEpic));
         inMemoryHistoryManager.remove(idEpic);
         allEpic.remove(idEpic);
     }
 
     @Override
     public void removeSubTask(int idSubTask, int idEpic) {
+        removeTaskFromPrioritize(allEpic.get(idEpic).getSubTaskOnId(idSubTask));
         allEpic.get(idEpic).removeSubTask(idSubTask);
     }
 
@@ -311,7 +313,7 @@ public class InMemoryTaskManager implements TaskManager {
         return prioritizedTasks;
     }
     @Override
-    public boolean checkDate(LocalDateTime dateTimeStart) {
+    public boolean isFreeDate(LocalDateTime dateTimeStart) {
         List<BaseTask> sortedTasks = new ArrayList<>(getPrioritizedTasks());
         int index = 1;
         int lastIndexSortedTasks = sortedTasks.size() - index;
@@ -344,24 +346,10 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void updatePrioritizedTasks() {
-        prioritizedTasks.clear();
-        if(!allTask.isEmpty()) {
-            for(Task task : allTask.values()) {
-                prioritizedTasks.add((BaseTask)task);
-            }
+    public void removeTaskFromPrioritize(BaseTask task) {
+        if(prioritizedTasks.contains(task)) {
+            prioritizedTasks.remove(task);
         }
-        if(!allEpic.isEmpty()) {
-            for(Epic epic : allEpic.values()) {
-                prioritizedTasks.add((BaseTask)epic);
-                if(!epic.getAllSubTask().isEmpty()){
-                    for(SubTask subTask : epic.getAllSubTask().values()) {
-                        prioritizedTasks.add((BaseTask)subTask);
-                    }
-                }
-            }
-        }
-
     }
 
     public HistoryManager getInMemoryHistoryManager() {
