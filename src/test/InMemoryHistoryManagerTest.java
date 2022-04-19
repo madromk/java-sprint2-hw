@@ -1,6 +1,7 @@
 package test;
 
 import manager.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tasks.BaseTask;
 import tasks.Task;
@@ -12,18 +13,25 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InMemoryHistoryManagerTest {
+    Task taskOne = null;
+    LocalDateTime dateTimeStartTask1 = null;
+    Duration durationTask1 = null;
+    Task taskTwo = null;
+    LocalDateTime dateTimeStartTask2 = null;
+    Duration durationTask2 = null;
+    @BeforeEach
+    void inputData() {
+        taskOne = new Task("Покупка", "Купить подарок на ДР",
+                InMemoryTaskManager.STATUS_NEW, TypeOfTask.TASK);
+        dateTimeStartTask1 = LocalDateTime.of(2022, 3, 17, 00, 00);
+        durationTask1 = Duration.ofDays(2);
 
-    Task taskOne = new Task("Покупка", "Купить подарок на ДР",
-            InMemoryTaskManager.STATUS_NEW, TypeOfTask.TASK);
-    LocalDateTime dateTimeStartTask1 = LocalDateTime.of(2022, 3, 17, 00, 00);
-    Duration durationTask1 = Duration.ofDays(2);
+        taskTwo = new Task("Поездка", "Сьездить к родителям",
+                InMemoryTaskManager.STATUS_NEW, TypeOfTask.TASK);
+        dateTimeStartTask2 = LocalDateTime.of(2022, 4, 8, 00, 00);
+        durationTask2 = Duration.ofDays(4);
+    }
 
-    Task taskTwo = new Task("Поездка", "Сьездить к родителям",
-            InMemoryTaskManager.STATUS_NEW, TypeOfTask.TASK);
-    LocalDateTime dateTimeStartTask2 = LocalDateTime.of(2022, 4, 8, 00, 00);
-    Duration durationTask2 = Duration.ofDays(4);
-
-    HistoryManager inMemoryHistoryManager = new Managers().getDefaultHistory();
     TaskManager inMemoryTaskManager = new Managers().getDefault();
 
     @Test
