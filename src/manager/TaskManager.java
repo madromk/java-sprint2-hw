@@ -5,6 +5,7 @@ import tasks.Epic;
 import tasks.SubTask;
 import tasks.Task;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public interface TaskManager {
     Task getTaskOnIdAndSaveInHistory(int idTask);
 
     Epic getEpicOnIdAndSaveInHistory(int idEpic);
+    SubTask getSubTaskOnIdAndSaveInHistory(int idSubTask);
 
     SubTask getSubTaskOnId(int idSubTask);
 
@@ -54,6 +56,8 @@ public interface TaskManager {
     void removeEpic(int id);
 
     void removeSubTask(int idSubTask, int idEpic);
+
+    void removeSubTaskById(int idSubTask);
 
     void getSubTaskInEpic(int epicId);
 

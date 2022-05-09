@@ -14,11 +14,16 @@ import java.util.List;
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
 
-    private final String fileName;
+    private String fileName;
 
     public FileBackedTasksManager(String fileName) {
         this.fileName = fileName;
     }
+
+    public FileBackedTasksManager() {
+
+    }
+
 
     @Override
     public int setTask(Task task, LocalDateTime dateTime, Duration duration) {
@@ -35,7 +40,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public int setSubTask(SubTask subtask, int idEpic, LocalDateTime dateTime, Duration duration) {
+    public int setSubTask(SubTask subtask, int idEpic, LocalDateTime dateTime,
+                          Duration duration) {
         int subTaskId = super.setSubTask(subtask, idEpic, dateTime, duration);
         save();
         return subTaskId;
@@ -64,7 +70,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         }
     }
 
-    public TaskManager loadFromFile(TaskManager inMemoryTaskManager, String fileName) {
+    public TaskManager load(TaskManager inMemoryTaskManager, String fileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String task = String.valueOf(TypeOfTask.TASK);
             String epic = String.valueOf(TypeOfTask.EPIC);
@@ -157,7 +163,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         }
     }
 
-    public static String toString(List<BaseTask> history) {
+    public static String historyToString(List<BaseTask> history) {
         List<BaseTask> allHistory = history;
         StringBuilder historyStr = new StringBuilder();
         for (BaseTask baseTask : allHistory) {

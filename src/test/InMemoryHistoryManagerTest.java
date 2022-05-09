@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import tasks.BaseTask;
 import tasks.Task;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,7 +33,7 @@ class InMemoryHistoryManagerTest {
         durationTask2 = Duration.ofDays(4);
     }
 
-    TaskManager inMemoryTaskManager = new Managers().getDefault();
+    TaskManager inMemoryTaskManager = new Managers().getInMemoryTaskManager();
 
     @Test
     void emptyHistory() {

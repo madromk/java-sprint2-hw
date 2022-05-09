@@ -6,6 +6,8 @@ import manager.TaskManager;
 import org.junit.jupiter.api.Test;
 import tasks.Task;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FileBackedTasksManagerTest extends TaskManagerTest{
@@ -13,8 +15,6 @@ class FileBackedTasksManagerTest extends TaskManagerTest{
     String fileName = "datafile.csv";
 
     FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager(fileName);
-
-
 
     @Test
     void saveTaskAndHistoryInFile() {
@@ -34,17 +34,17 @@ class FileBackedTasksManagerTest extends TaskManagerTest{
     @Test
     void loadFromFile() {
         FileBackedTasksManager fileBackedTasksManager2 = new FileBackedTasksManager(fileName);
-        TaskManager inMemoryTaskManager = new Managers().getDefault();
-        inMemoryTaskManager = fileBackedTasksManager2.loadFromFile(inMemoryTaskManager, fileName);
+        TaskManager inMemoryTaskManager = new Managers().getTasksManager(fileName);
+        inMemoryTaskManager = fileBackedTasksManager2.load(inMemoryTaskManager, fileName);
 
 
         //Проверяем, что задачи которые мы прочитали из файла, совпадают с теми, которые мы положили в файл
         taskOne.setId(1); //Здесь заданим айди задачи, поскольку айди присваивается в момент сохранения задачи в табл.
         Task task1 = inMemoryTaskManager.getTaskOnId(1);
-        assertEquals(taskOne, task1, "Задачи не совпадают");
+        assertEquals(taskOne, task1, "Задачи не совпадают task1");
         taskTwo.setId(2); //По аналогии с 42 строкой
         Task task2 = inMemoryTaskManager.getTaskOnId(2);
-        assertEquals(taskTwo, task2, "Задачи не совпадают");
+        assertEquals(taskTwo, task2, "Задачи не совпадают task2");
 
         //Выводим на печать историю
         System.out.println(inMemoryTaskManager.history());

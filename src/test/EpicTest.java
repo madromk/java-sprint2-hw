@@ -1,10 +1,16 @@
 package test;
 
 import manager.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import server.HTTPTaskManager;
+import server.KVServer;
 import tasks.Epic;
 import tasks.SubTask;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -12,7 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EpicTest {
 
-    TaskManager inMemoryTaskManager = new Managers().getDefault();
+    TaskManager inMemoryTaskManager = new InMemoryTaskManager();
+
 
     public Epic getEpicOne() {
         return new Epic("Учеба", "Пройти шестой спринт", TypeOfTask.EPIC);
@@ -38,6 +45,17 @@ class EpicTest {
     public Duration durationTwo() {
         return Duration.ofDays(6);
     }
+
+//    @BeforeEach
+//    public void startServer() {
+//        KVServer kvServer = new KVServer();
+//        kvServer.start();
+//    }
+//
+//    @AfterEach
+//    public void startStop() {
+//        kvServer.stop();
+//    }
 
     @Test
     public void shouldGiveStatusNewForEpicWithoutSub() {

@@ -5,6 +5,7 @@ import tasks.Epic;
 import tasks.SubTask;
 import tasks.Task;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -131,6 +132,18 @@ public class InMemoryTaskManager implements TaskManager {
         for(Epic epic : allEpic.values()) {
             HashMap<Integer, SubTask> subTasks = epic.getAllSubTask();
             if(subTasks.containsKey(idSubTask)) {
+                subTask = subTasks.get(idSubTask);
+            }
+        }
+        return subTask;
+    }
+
+    @Override
+    public SubTask getSubTaskOnIdAndSaveInHistory(int idSubTask) {
+        SubTask subTask = null;
+        for(Epic epic : allEpic.values()) {
+            HashMap<Integer, SubTask> subTasks = epic.getAllSubTask();
+            if(subTasks.containsKey(idSubTask)) {
                 inMemoryHistoryManager.addInHistory(subTasks.get(idSubTask));
                 subTask = subTasks.get(idSubTask);
             }
@@ -237,6 +250,17 @@ public class InMemoryTaskManager implements TaskManager {
     public void removeSubTask(int idSubTask, int idEpic) {
         removeTaskFromPrioritize(allEpic.get(idEpic).getSubTaskOnId(idSubTask));
         allEpic.get(idEpic).removeSubTask(idSubTask);
+    }
+
+    @Override
+    public void removeSubTaskById(int idSubTask) {
+        if(!(allEpic.isEmpty())) {
+            for(Epic epic : allEpic.values()) {
+                if(epic.getAllSubTask().containsKey(idSubTask)) {
+                    epic.removeSubTask(idSubTask);
+                }
+            }
+        }
     }
 
     @Override

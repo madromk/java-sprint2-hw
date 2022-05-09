@@ -5,17 +5,16 @@ import manager.TypeOfTask;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.Objects;
 
 public class BaseTask {
     private String name;
     private String description;
-    private Integer id;
+    private int id;
     private Statuses status;
-    TypeOfTask type;
-    private Duration duration;
-    private LocalDateTime localStartDate;
+    private TypeOfTask type;
+    private Duration durationInHours;
+    private LocalDateTime startDate;
 
     public BaseTask(String name, String description, Statuses status) {
         this.name = name;
@@ -40,10 +39,6 @@ public class BaseTask {
                 Objects.equals(description, baseTask.getDescription());
     }
 
-//    @Override
-//    public int hashCode() {
-//        return id.hashCode();
-//    }
 
     @Override
     public String toString() {
@@ -88,27 +83,27 @@ public class BaseTask {
     }
 
     public void setDuration(Duration duration) {
-        this.duration = duration;
+        this.durationInHours = duration;
     }
 
     public void setStartDate(LocalDateTime localStartDate) {
-        this.localStartDate = localStartDate;
+        this.startDate = localStartDate;
     }
 
     public LocalDateTime getEndTime() {
-        return localStartDate.plus(duration);
+        return startDate.plus(durationInHours);
     }
 
     public Duration getDuration() {
-        return duration;
+        return durationInHours;
     }
 
     public LocalDateTime getStartDate() {
-        return localStartDate;
+        return startDate;
     }
 
     public String getDurationInDays() {
-        return String.valueOf(duration.toDays());
+        return String.valueOf(durationInHours.toDays());
     }
 
 }

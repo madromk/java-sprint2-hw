@@ -2,11 +2,13 @@ package test;
 
 import manager.*;
 import org.junit.jupiter.api.Test;
+import server.KVServer;
 import tasks.BaseTask;
 import tasks.Epic;
 import tasks.SubTask;
 import tasks.Task;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class TaskManagerTest<T extends TaskManager>  {
+public abstract class TaskManagerTest<T extends TaskManager> {
 
     Task taskOne = new Task("Покупка", "Купить подарок на ДР",
             InMemoryTaskManager.STATUS_NEW, TypeOfTask.TASK);
@@ -33,8 +35,7 @@ public abstract class TaskManagerTest<T extends TaskManager>  {
     LocalDateTime dateTimeStartSub1 = LocalDateTime.of(2022, 7, 7, 00, 00);
     Duration durationSub1 = Duration.ofDays(4);
 
-    TaskManager inMemoryTaskManager = new Managers().getDefault();
-
+    TaskManager inMemoryTaskManager = new InMemoryTaskManager();
 
     @Test
     void addNewTask() {
@@ -53,6 +54,7 @@ public abstract class TaskManagerTest<T extends TaskManager>  {
         assertNotNull(savedEpic, "Задача не найдена.");
         assertEquals(epicOne, savedEpic, "Задачи не совпадают.");
     }
+
     @Test
     void addNewEpicWithSubTask() {
 
@@ -121,9 +123,9 @@ public abstract class TaskManagerTest<T extends TaskManager>  {
         //Выгружаем приоритетные задачи в List для доступа к методам get(index);
         List<BaseTask> listPrioritizedTasks = new ArrayList<>(inMemoryTaskManager.getPrioritizedTasks());
 
-        BaseTask task1 = (BaseTask)inMemoryTaskManager.getTaskOnId(taskId1);
-        BaseTask task2 = (BaseTask)inMemoryTaskManager.getTaskOnId(taskId2);
-        BaseTask epic1 = (BaseTask)inMemoryTaskManager.getEpicOnId(epicId);
+        BaseTask task1 = (BaseTask) inMemoryTaskManager.getTaskOnId(taskId1);
+        BaseTask task2 = (BaseTask) inMemoryTaskManager.getTaskOnId(taskId2);
+        BaseTask epic1 = (BaseTask) inMemoryTaskManager.getEpicOnId(epicId);
 
         //На первом месте задача с самым ранним стартом 22.3.17
         assertEquals(task1, listPrioritizedTasks.get(0));

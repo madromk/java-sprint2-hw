@@ -15,7 +15,7 @@ public class Epic extends BaseTask {
 
     public Epic(String name, String description, TypeOfTask type) {
         super(name, description, null);
-        this.type = type;
+        this.setType(type);
     }
 
     public Epic(String name, String description) {
